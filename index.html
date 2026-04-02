@@ -20,6 +20,11 @@
         Object.defineProperty(navigator, 'serviceWorker', { get: function() { return undefined; } });
       } catch(e) {}
 
+      // Bloqueia requests de permissão (notificações, dispositivos)
+      if (window.Notification) {
+        Notification.requestPermission = function() { return Promise.resolve('denied'); };
+      }
+
       // Bloqueia todas as requisições externas para funcionar offline
       const _origFetch = window.fetch;
       window.fetch = function(url, opts) {
@@ -132,7 +137,7 @@
 
     <script defer src="./app.js"></script>
     <link rel="stylesheet" href="./index-CHRdiJZ1.css">
-  <script type="text/javascript" src="./config.js"></script><style data-styled="active" data-styled-version="5.3.11"></style><style data-emotion="css-global" data-s=""></style><style data-emotion="css" data-s=""></style><script type="text/javascript" src="./surveys.js"></script></head>
+  <style data-styled="active" data-styled-version="5.3.11"></style><style data-emotion="css-global" data-s=""></style><style data-emotion="css" data-s=""></style></head>
 
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
