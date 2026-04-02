@@ -25,6 +25,9 @@
         Notification.requestPermission = function() { return Promise.resolve('denied'); };
       }
 
+      // Bloqueia sendBeacon (analytics/telemetria)
+      navigator.sendBeacon = function() { return false; };
+
       // Bloqueia todas as requisições externas para funcionar offline
       const _origFetch = window.fetch;
       window.fetch = function(url, opts) {
